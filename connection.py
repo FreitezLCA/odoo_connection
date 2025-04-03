@@ -70,6 +70,25 @@ class OdooXMLRPC:
         logging.info(f"Resultados encontrados: {len(result)}")
         return result
 
+    def search_read(self, model: str, domain: list, fields: list, limit: int = 10) -> list:
+        """
+        Realiza una búsqueda de registros en Odoo y devuelve los campos especificados.
+
+        Args:
+            model (str): El nombre del modelo en el que se realiza la búsqueda.
+            domain (list): Una lista que representa el dominio de búsqueda.
+                            Por ejemplo, [('field_name', '=', 'value')].
+            fields (list): Lista de campos a devolver.
+            limit (int, optional): El número máximo de resultados a devolver. Por defecto es 10.
+
+        Returns:
+            list: Una lista de diccionarios con los registros y sus campos especificados.
+        """
+        logging.info(f"Buscando y leyendo en {model} con dominio {domain}, campos {fields} y límite {limit}")
+        result = self.models.execute_kw(self.db, self.uid, self.password, model, "search_read", [domain, fields], {"limit": limit})
+        logging.info(f"Resultados encontrados: {len(result)}")
+        return result
+
     def write(self, model: str, ids: list, values: dict) -> bool:
         """
         Actualiza los registros existentes en Odoo con los valores proporcionados.
