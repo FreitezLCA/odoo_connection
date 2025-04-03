@@ -84,7 +84,7 @@ class OdooXMLRPC:
         """
         logging.info(f"Actualizando {model} para los IDs {ids} con valores {values}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "write", [ids, values])
-        logging.info(f"Actualización exitosa: {result}")
+        logging.info(f"Actualización exitosa: {len(result)}")
         return result
 
     def delete(self, model: str, ids: list) -> bool:
