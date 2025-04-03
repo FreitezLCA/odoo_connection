@@ -8,7 +8,8 @@ class OdooXMLRPC:
     def __init__(self):
         # Leer configuración del archivo config.ini
         config = configparser.ConfigParser()
-        config.read("config.ini")
+        config.read("./odoo_connection/config.ini")
+        
 
         self.url = config.get("odoo", "url")
         self.db = config.get("odoo", "db")
@@ -66,7 +67,7 @@ class OdooXMLRPC:
         """
         logging.info(f"Buscando en {model} con dominio {domain} y límite {limit}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "search", [domain], {"limit": limit})
-        logging.info(f"Resultados encontrados: {result}")
+        logging.info(f"Resultados encontrados: {len(result)}")
         return result
 
     def write(self, model: str, ids: list, values: dict) -> bool:
