@@ -47,7 +47,7 @@ class OdooXMLRPC:
         Returns:
             dict: El ID del registro creado.
         """
-        logging.info(f"Creando registro en {model} con valores {values}")
+        logging.info(f"Creando registro en {model}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "create", [values])
         logging.info(f"Registro creado con ID {result}")
         return result
@@ -84,7 +84,7 @@ class OdooXMLRPC:
         Returns:
             list: Una lista de diccionarios con los registros y sus campos especificados.
         """
-        logging.info(f"Buscando y leyendo en {model} con dominio {domain}, campos {fields} y límite {limit}")
+        logging.info(f"Buscando y leyendo en {model} con {len(fields)} campos y límite {limit}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "search_read", [domain, fields], {"limit": limit})
         logging.info(f"Resultados encontrados: {len(result)}")
         return result
@@ -101,9 +101,9 @@ class OdooXMLRPC:
         Returns:
             bool: True si la actualización fue exitosa, False si hubo algún error.
         """
-        logging.info(f"Actualizando {model} para los IDs {ids} con valores {values}")
+        logging.info(f"Actualizando {model} para {len(ids)} registros")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "write", [ids, values])
-        logging.info(f"Actualización exitosa: {len(result)}")
+        logging.info(f"Actualización exitosa: {result}")
         return result
 
     def delete(self, model: str, ids: list) -> bool:

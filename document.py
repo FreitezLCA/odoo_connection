@@ -91,3 +91,25 @@ class DocumentConverter:
         except Exception as e:
             logging.error(f"Error en la conversión desde Base64: {e}")
             raise
+
+    def xml_to_base64(self, xml_content: str) -> str:
+        """
+        Convierte el contenido XML a base64.
+
+        Args:
+            xml_content (str): Contenido XML a convertir.
+
+        Returns:
+            str: Contenido XML codificado en base64.
+        """
+        logging.info("Convirtiendo XML a Base64")
+        try:
+            # Convertir el contenido XML a bytes
+            xml_bytes = xml_content.encode('utf-8')
+            # Codificar a base64
+            xml_base64 = base64.b64encode(xml_bytes).decode('utf-8')
+            logging.info("Conversión a Base64 exitosa")
+            return xml_base64
+        except Exception as e:
+            logging.error(f"Error en la conversión a Base64: {e}")
+            raise
