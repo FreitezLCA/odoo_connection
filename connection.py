@@ -52,7 +52,7 @@ class OdooXMLRPC:
         logging.info(f"Registro creado con ID {result}")
         return result
 
-    def search(self, model: str, domain: list, limit: int = 10) -> list:
+    def search(self, model: str, domain: list, limit: int = 20) -> list:
         """
         Realiza una búsqueda de registros en Odoo según el dominio especificado.
 
@@ -120,6 +120,23 @@ class OdooXMLRPC:
         logging.info(f"Eliminando registros en {model} con IDs {ids}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "unlink", [ids])
         logging.info(f"Eliminación exitosa: {result}")
+        return result
+
+    def search_count(self, model: str, domain: list) -> int:
+        """
+        Cuenta el número de registros que coinciden con el dominio especificado.
+
+        Args:
+            model (str): El nombre del modelo en el que se realiza la búsqueda.
+            domain (list): Una lista que representa el dominio de búsqueda.
+                            Por ejemplo, [('field_name', '=', 'value')].
+
+        Returns:
+            int: El número de registros que coinciden con el dominio.
+        """
+        logging.info(f"Contando registros en {model} con dominio {domain}")
+        result = self.models.execute_kw(self.db, self.uid, self.password, model, "search_count", [domain])
+        logging.info(f"Registros encontrados: {result}")
         return result
 
 
