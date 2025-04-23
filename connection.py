@@ -67,7 +67,7 @@ class OdooXMLRPC:
         """
         logging.info(f"Buscando en {model} con dominio {domain} y límite {limit}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "search", [domain], {"limit": limit})
-        logging.info(f"Resultados encontrados: {len(result)}")
+        
         return result
 
     def search_read(self, model: str, domain: list, fields: list, limit: int = 10) -> list:
@@ -84,9 +84,9 @@ class OdooXMLRPC:
         Returns:
             list: Una lista de diccionarios con los registros y sus campos especificados.
         """
-        logging.info(f"Buscando y leyendo en {model} con {len(fields)} campos y límite {limit}")
+        logging.info(f"Buscando y leyendo en {model} campos y límite {limit}")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "search_read", [domain, fields], {"limit": limit})
-        logging.info(f"Resultados encontrados: {len(result)}")
+        
         return result
 
     def write(self, model: str, ids: list, values: dict) -> bool:
@@ -101,7 +101,7 @@ class OdooXMLRPC:
         Returns:
             bool: True si la actualización fue exitosa, False si hubo algún error.
         """
-        logging.info(f"Actualizando {model} para {len(ids)} registros")
+        logging.info(f"Actualizando {model}registros")
         result = self.models.execute_kw(self.db, self.uid, self.password, model, "write", [ids, values])
         logging.info(f"Actualización exitosa: {result}")
         return result
