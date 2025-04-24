@@ -27,7 +27,7 @@ class DocumentConverter:
             temp_path = pdf_path.replace('.pdf', '_ocr.pdf')
             
             # Aplicar OCR utilizando ocrmypdf
-            ocrmypdf.ocr(pdf_path, temp_path, language='spa', deskew=True)
+            ocrmypdf.ocr(pdf_path, temp_path, language='spa', deskew=True, quiet=True)
             
             logging.info("OCR aplicado exitosamente")
             return temp_path
