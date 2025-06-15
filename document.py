@@ -56,6 +56,11 @@ class DocumentConverter:
         """
         if self.csv_path is None:
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            
+            # Agregar esta verificación del directorio
+            if not os.path.exists(self.reports_dir):
+                os.makedirs(self.reports_dir)
+            
             self.csv_path = os.path.join(self.reports_dir, f"page_stats_{timestamp}.csv")
             
             self._csv_file = open(self.csv_path, 'w', newline='', encoding='utf-8')
