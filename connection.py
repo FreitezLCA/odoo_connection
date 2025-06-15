@@ -1,21 +1,28 @@
 import xmlrpc.client
 import configparser
 import logging
+import os
 
 
 class OdooXMLRPC:
 
-    def __init__(self):
-        # Leer configuración del archivo config.ini
+    def __init__(self, config_path=None):
         config = configparser.ConfigParser()
-        config.read("./odoo_connection/config.ini")
-        
+
+        if config_path:
+            config.read(config_path)
+        else:
+            config.read("config.ini")
 
         self.url = config.get("odoo", "url")
         self.db = config.get("odoo", "db")
         self.username = config.get("odoo", "username")
         self.password = config.get("odoo", "password")
         self.log_file = config.get("odoo", "log_file", fallback="odoo_xmlrpc.log")
+
+        log_dir = os.path.dirname(self.log_file)
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
 
         # Configuración del logging
         logging.basicConfig(level=logging.INFO,
